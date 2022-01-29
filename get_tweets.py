@@ -14,7 +14,7 @@ def writejson(finished, ourjson):
     to_write = ""
     for tweet in ourjson:
         to_write += f"{tweet}\n"
-    with open("tweets.jsonl", "w+") as fil:
+    with open("tweets.jsonl", "a+") as fil:
         fil.write(to_write)
     with open("finished", "w+") as fin:
         fin.write(json.dumps(finished))
