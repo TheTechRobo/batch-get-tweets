@@ -1,5 +1,5 @@
 from snscrape.modules.twitter import TwitterTweetScraperMode, TwitterTweetScraper
-import json
+import json, time
 from alive_progress import alive_bar
 
 with open("twitterids") as ids:
@@ -29,6 +29,7 @@ with alive_bar(total=len(ids)) as bar:
         bar.text(identifier)
         scraper = TwitterTweetScraper(identifier, mode=TwitterTweetScraperMode.RECURSE)
         for tweet in scraper.get_items():
+            tweet["archivist_data"] = {"time": time.time()}
             tweetdata = tweet.json()
             finished.append(tweet.id)
             ourjson.append(tweetdata)
